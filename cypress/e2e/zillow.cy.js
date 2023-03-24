@@ -12,7 +12,28 @@ describe('Zillow Test', () => {
     'form-1_downPaymentPercent',
     'rate'
   ]
-    it.only('Tests Calculations after updating rates', () => {
+  it('Tests Zillow Components', () => {
+    cy.get('li[aria-selected=true]').within(() => {
+      cy.contains('li', 'Mortgage calculator')
+    })
+
+    // Confirm page layout contains appropriate input fields
+    Object.values(inputFields).forEach((input) => {
+      cy.get(`input[id="${input}"]`)
+    })
+
+    cy.get('input[id=rate]').clear()
+
+    /***
+     * This is highlighting a bug
+     * Using enter causes the page to reset
+     * Clicking 'somewhere else' on the page after typing causes the 
+     * calculations to happen with the new value, enter SHOULD do the same
+     */
+    cy.get('input[id=rate]').type('3.0{enter}')
+    cy.get('input[id=rate]').should('have.value', '3.0')
+  })
+    it('Tests Calculations after updating rates', () => {
       // Set the intercept to acquire the request payload conatinaing the calculator info
       cy.intercept('POST', 'https://e.zg-api.com/click/zg_prod_web/*').as('ratesRequest')
   
@@ -34,32 +55,9 @@ describe('Zillow Test', () => {
   
       // Retain the wrapped values
       cy.get('@initialRateInfo').then((initialInfo) => {
-        console.log(initialInfo)
+        cy.get('@updatedRateInfo').then((updatedInfo) => {
+          cy.assertValueChanges(initialInfo, updatedInfo)
+        })
       })
-      cy.get('@updatedRateInfo').then((updatedInfo) => {
-        console.log(updatedInfo)
-      })
-    })
-    it('Tests Zillow Components', () => {
-      // To Do: Create a verify page command and pass in Mortgage Calculator variable
-      cy.get('li[aria-selected=true]').within(() => {
-        cy.contains('li', 'Mortgage calculator')
-      })
-  
-      // Confirm page layout contains appropriate input fields
-      Object.values(inputFields).forEach((input) => {
-        cy.get(`input[id="${input}"]`)
-      })
-  
-      cy.get('input[id=rate]').clear()
-  
-      /***
-       * This is highlighting a bug
-       * Using enter causes the page to reset
-       * Clicking 'somewhere else' on the page after typing causes the 
-       * calculations to happen with the new value, enter SHOULD do the same
-       */
-      cy.get('input[id=rate]').type('3.0{enter}')
-      cy.get('input[id=rate]').should('have.value', '3.0')
     })
   })
