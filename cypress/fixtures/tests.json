@@ -1,0 +1,57 @@
+{
+    "tests": {
+        "home_price": [
+            {
+                "title": "Happy Path",
+                "value": "300,000"
+            }, {
+                "title": "Invalid Type",
+                "value": "test",
+                "error_message": "'test' is not a valid number"
+            }, {
+                "title": "Low Value",
+                "value": "3000",
+                "error_message": "Home price must be greater than or equal to 5,000"
+            }, {
+                "title": "Negative Value",
+                "value": "-300000",
+                "error_message": "Home price must be greater than or equal to 5,000"
+            }, {
+                "title": "Empty Value",
+                "error_message": "Invalid value"
+            }
+        ],
+        "down_payment": [
+            {
+                "title": "Happy Path", 
+                "value": "60000",
+                "percentage": "20"
+            },             {
+                "title": "No Down Payment", 
+                "value": "0",
+                "percentage": "0"
+            },
+            {
+                "title": "Same as Home Price",
+                "value": "300000",
+                "percentage": "100",
+                "error_message": "The down payment amount must be less than the loan amount"
+            },
+            {
+                "title": "More Than Home Price",
+                "value": "500000",
+                "percentage": "100",
+                "error_message": "The down payment amount must be less than the loan amount"
+            }, {
+                "title": "Invalid Type",
+                "value": "test",
+                "error_message": "'test' is not a valid number"
+            }, {
+                "title": "Negative",
+                "value": "-3000",
+                "percentage": "-1",
+                "error_message": "Down payment must be greater than or equal to 0"
+            }
+        ]
+    }
+}
