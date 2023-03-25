@@ -4,5 +4,9 @@ Cypress.Commands.add('assertValueChanges', (initialRateInfo, updatedRateInfo) =>
 })
 
 Cypress.Commands.add('validateError', (label, message) => {
-    cy.get(`label[id=${label}]`).parent().contains(message)
+    if(label==='label_4') {
+        cy.get(`label[id=${label}]`).parent().parent().parent().contains(message)
+    } else {
+        cy.get(`label[id=${label}]`).parent().contains(message)
+    }
 })

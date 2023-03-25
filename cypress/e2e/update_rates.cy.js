@@ -1,28 +1,23 @@
 describe('Zillow Test', () => {
-    beforeEach(() => {
-      cy.visit('/mortgage-calculator/', {
-        headers: {
-          'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
-        }
-      })
-    })
   const inputFields = [
     'homePrice',
     'form-1_downPayment',
     'form-1_downPaymentPercent',
     'rate'
   ]
-  it('Tests Zillow Components', () => {
-    cy.get('li[aria-selected=true]').within(() => {
-      cy.contains('li', 'Mortgage calculator')
-    })
+    beforeEach(() => {
+      cy.visit('/mortgage-calculator/')
 
+      // Validate appropriate page selection
+      cy.get('li[aria-selected=true]').within(() => {
+        cy.contains('li', 'Mortgage calculator')
+      })
     // Confirm page layout contains appropriate input fields
     Object.values(inputFields).forEach((input) => {
       cy.get(`input[id="${input}"]`)
+      })
     })
-
-    cy.get('input[id=rate]').clear()
+  it('Bug/Expected Failure - Tests Updating Rate Field', () => {
 
     /***
      * This is highlighting a bug
@@ -30,6 +25,7 @@ describe('Zillow Test', () => {
      * Clicking 'somewhere else' on the page after typing causes the 
      * calculations to happen with the new value, enter SHOULD do the same
      */
+    cy.get('input[id=rate]').clear()
     cy.get('input[id=rate]').type('3.0{enter}')
     cy.get('input[id=rate]').should('have.value', '3.0')
   })
