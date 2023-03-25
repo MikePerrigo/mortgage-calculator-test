@@ -1,4 +1,4 @@
-describe('Zillow Test', () => {
+describe('Tests the rate field', () => {
   const inputFields = [
     'homePrice',
     'form-1_downPayment',
