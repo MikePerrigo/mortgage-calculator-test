@@ -52,6 +52,33 @@
                 "percentage": "-1",
                 "error_message": "Down payment must be greater than or equal to 0"
             }
+        ], 
+        "interest_rate": [
+            {
+                "title": "Happy Path",
+                "value": "6.25"
+            },{
+                "title": "Less than 1",
+                "value": "0.5"
+            },{
+                "title": "Invalid Type",
+                "value": "test",
+                "error_message": "'test' is not a valid number"
+            }, {
+                "title": "Negative Value",
+                "value": "-5",
+                "error_message": "Rate must be greater than or equal to 0"
+            }, {
+                "title": "Value Too High",
+                "value": "150",
+                "error_message": "Rate must be less than or equal to 100"
+            }, {
+                "title": "Max Value",
+                "value": "100"
+            }, {
+                "title": "Minimum",
+                "value": "0"
+            }
         ]
     }
 }

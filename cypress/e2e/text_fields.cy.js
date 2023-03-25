@@ -14,6 +14,8 @@ describe('Tests Input Fields', () => {
             cy.contains('Home price').click()
             if(test.error_message) {
                 cy.validateError('label_1', test.error_message)
+            } else {
+                cy.get('input[id="homePrice"]').should('have.attr', 'aria-invalid', 'false')
             }
         })
     })
@@ -23,6 +25,8 @@ describe('Tests Input Fields', () => {
             cy.contains('Home price').click()
             if(test.error_message) {
                 cy.validateError('label_2', test.error_message)
+            } else {
+                cy.get('input[id="form-1_downPayment"]').should('have.attr', 'aria-invalid', 'false')
             }
         })
     })
