@@ -1,16 +1,16 @@
 describe('Tests the rate field', () => {
   const inputFields = [
     'homePrice',
-    'form-1_downPayment',
-    'form-1_downPaymentPercent',
+    'form-2_downPayment',
+    'form-2_downPaymentPercent',
     'rate'
   ]
     beforeEach(() => {
       cy.visit('/mortgage-calculator/')
 
       // Validate appropriate page selection
-      cy.get('li[aria-selected=true]').within(() => {
-        cy.contains('li', 'Mortgage calculator')
+      cy.get('#zmm-calc-payment').within(() => {
+        cy.contains('Mortgage Calculator')
       })
     // Confirm page layout contains appropriate input fields
     Object.values(inputFields).forEach((input) => {
@@ -31,7 +31,7 @@ describe('Tests the rate field', () => {
   })
     it('Tests Calculations after updating rates', () => {
       // Set the intercept to acquire the request payload conatinaing the calculator info
-      cy.intercept('POST', 'https://e.zg-api.com/click/zg_prod_web/*').as('ratesRequest')
+      cy.intercept('POST', 'https://cs.zg-api.com/click/zg_prod_web/*').as('ratesRequest')
   
       // Wait for the defined route to complete then pull the calculator info
       cy.wait('@ratesRequest').then((xhr) => {
