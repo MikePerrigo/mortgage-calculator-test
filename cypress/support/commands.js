@@ -3,10 +3,6 @@ Cypress.Commands.add('assertValueChanges', (initialRateInfo, updatedRateInfo) =>
     expect(initialRateInfo.estimated_monthly_payment_amt).to.not.equal(updatedRateInfo.estimated_monthly_payment_amt)
 })
 
-Cypress.Commands.add('validateError', (label, message) => {
-    if(label==='label_4') {
-        cy.get(`label[id=${label}]`).parent().parent().parent().contains(message)
-    } else {
-        cy.get(`label[id=${label}]`).parent().contains(message)
-    }
+Cypress.Commands.add('validateError', (message) => {
+    cy.get(`p[class^="StyledFormHelp"]`).parent().contains(message)
 })
